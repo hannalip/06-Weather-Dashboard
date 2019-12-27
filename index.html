@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather Dashboard</title>
+</head>
+
+<body>
+<!-- Retrieved data will be dumped here -->
+<!-- Current conditions -->
+  <label for="city-input">Search for a City</label>
+  <input type="text" id="city-input"><br>
+  <input id="find-city" type="submit" value="Search">
+  <div class="city date"></div>
+  <div class="temp"></div>
+  <div class="humidity"></div>
+  <div class="wind"></div>
+  <div class="uvIndex"></div>
+  <div class="forecast"></div>
+  <div class="icon"></div>
+  <div class="fiveTemp"></div>
+  <div class="fiveHumidity"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+// API key
+var APIKey = "e81f0537589234627d5b1a48e0ed13db";
+    
+//Event Listener on City Search
+$(document).ready(function () {
+$("#find-city").on("click", function(event) {
+
+event.preventDefault();
+
+//setting local storage
+var key = $(this).siblings(".description").val();
+var vaule = $(this).parent().attr("id");
+
+// Here we grab the text from the input box
+var searchedCity = $("#city-input").val();
+
+// Here we are building the URL we need to query the database
+var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
+searchedCity + "&units=imperial&appid=" + APIKey;
+
+// CURRENT CONDITION
+
+// Here we run our AJAX call to the OpenWeatherMap API
+    $.ajax({
+    url: queryURL,
+    method: "GET"
+    })
+
+// We store all of the retrieved data inside of an object called "response"
+.then(function(response) {
+console.log(response)
+// Transfer content to HTML
+$(".city").html("<h1>" + response.name + " Weather Details</h1>");
+$(".wind").text("Wind Speed: " + response.wind.speed);
+$(".humidity").text("Humidity: " + response.main.humidity);
+$(".temp").text("Temperature (F): " + response.main.temp);
+
+// Call for UV Index
+var lat = response.coord.lat
+var lon = response.coord.lon
+$.ajax({
+    url: "https://api.openweathermap.org/data/2.5/uvi?" + "lat=" + 
+    lat + "&lon=" + lon + "&appid=" + APIKey,
+    method: "GET"
+    })
+
+.then(function(uvIndexResponse) {
+$(".uvIndex").text("UV Index: " + uvIndexResponse.value)
+});
+
+//Call for 5 Day Forecast
+
+var cityID = response.id
+$.ajax({
+    url: "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID +  "&units=imperial&appid=" + APIKey,
+    method: "GET"
+    })
+
+.then(function(fiveDayResponse) {
+    console.log(fiveDayResponse)
+$(".forecast").text(fiveDayResponse.list[0].dt_txt)
+$(".icon").text(fiveDayResponse.list[0].weather[0].icon)
+$(".fiveTemp").text("Temp: " +fiveDayResponse.list[0].main.temp)
+$(".fiveHumidity").text("Humidity: " + fiveDayResponse.list[0].main.humidity)
+});
+
+
+});
+});
+});
+</script>
+</body>
+
+</html>
