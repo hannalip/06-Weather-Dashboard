@@ -17,12 +17,52 @@
   <div class="humidity"></div>
   <div class="wind"></div>
   <div class="uvIndex"></div>
-  <div class="forecast"></div>
-  <div class="icon"></div>
-  <div class="fiveTemp"></div>
-  <div class="fiveHumidity"></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
+<!-- 5 Day Forecast -->
+<div class="container">
+<div class="day">
+    <h2>Date</h2>
+    <div class="forecast"></div>
+    <div class="icon"></div>
+    <div class="fiveTemp"></div>
+    <div class="fiveHumidity"></div>
+</div>
+<div class="day">
+    <h2>Date</h2>
+    <div class="forecast"></div>
+    <div class="icon"></div>
+    <div class="fiveTemp"></div>
+    <div class="fiveHumidity"></div>
+</div>
+<div class="day">
+    <h2>Date</h2>
+    <div class="forecast"></div>
+    <div class="icon"></div>
+    <div class="fiveTemp"></div>
+    <div class="fiveHumidity"></div>
+</div>
+<div class="day">
+    <h2>Date</h2>
+    <div class="forecast"></div>
+    <div class="icon"></div>
+    <div class="fiveTemp"></div>
+    <div class="fiveHumidity"></div>
+</div>
+<div class="day">
+    <h2>Date</h2>
+      <div class="forecast"></div>
+      <div class="icon"></div>
+      <div class="fiveTemp"></div>
+      <div class="fiveHumidity"></div>
+</div>
+
+</div>
+<!-- Search History -->
+  <div class = "searchedHistory"></div>
+
+
+<!-- Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
 
 // API key
 var APIKey = "e81f0537589234627d5b1a48e0ed13db";
@@ -33,13 +73,15 @@ $("#find-city").on("click", function(event) {
 
 event.preventDefault();
 
-//setting local storage
-var key = $(this).siblings(".description").val();
-var vaule = $(this).parent().attr("id");
 
 // Here we grab the text from the input box
 var searchedCity = $("#city-input").val();
 
+//setting local storage
+// var cityArray = [];
+localStorage.setItem("name", searchedCity);
+console.log(localStorage.getItem("name"))
+$(".searchedHistory").append(localStorage.getItem("name"))
 // Here we are building the URL we need to query the database
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
 searchedCity + "&units=imperial&appid=" + APIKey;
