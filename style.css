@@ -1,0 +1,36 @@
+.searcharea {
+    background-color: #70a1d4;
+    padding: 20px;
+}
+
+.uvIndex {
+    padding: 5px;
+}
+
+.fivecards{
+    box-sizing: border-box;
+    width: 20%;
+    margin: 5px;
+    padding: 5px;
+    
+}
+
+.fivecards:first-child {
+    margin-left: 0px;
+}
+
+.fivecards:last-child{
+    margin-right: 0px;
+}
+
+.forecast {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+
+#searchbtn{
+    padding: 6px 5px 0px 5px;
+
+}
