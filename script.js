@@ -44,39 +44,30 @@ function getweather(searchedCity) {
             //create the container/card
             var currentCard = $("<div>").attr("class", "card bg-light");
             $("#cityforecast").append(currentCard);
-            //add location to card header
-            var cardHeader = $("<div>").attr("class", "card-header").text("Current weather for " + response.name);
-            currentCard.append(cardHeader);
 
-            var cardRow = $("<div>").attr("class", "row");
+
+            var cardRow = $("<div>").attr("class", "row-info");
             currentCard.append(cardRow);
 
-            // get icon onto card
-            var iconURL = "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
-
-            var imgDiv = $("<div>").attr("class", "col-md-4").append($("<img>").attr("src", iconURL).attr("class", "card-img"));
-            cardRow.append(imgDiv);
-
+                // get icon onto card
+                var iconURL = "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
+                var imgDiv = $("<div>").attr("class", "col-md-3").append($("<img>").attr("src", iconURL).attr("class", "card-img"));
+    
             // Transfer content to HTML
             //display city name
-            var textDiv = $("<div>").attr("class", "col-md-8");
+            var textDiv = $("<div>").attr("class", "col-md-9");
             var cardBody = $("<div>").attr("class", "card-body");
             textDiv.append(cardBody);
-            cardBody.append($("<h3>").attr("class", "card-title").text(response.name + " Weather Details"));
-            //display last updated
-            var currentDate = moment(response.dt, "X").format("dddd, MMMM Do YYYY, h:mm a");
-            cardBody.append($("<p>").attr("class", "card-text").append($("<small>").attr("class", "text-muted").text("Last updated: " + currentDate)));
+            var currentDate = moment().format('l');
+            cardBody.append($("<h3>").attr("class", "card-title").text(response.name + " " + "(" + currentDate + ")").append(imgDiv));
+
+    
             //display Temperature
             cardBody.append($("<p>").attr("class", "card-text").html("Temperature: " + response.main.temp + " &#8457;"));
             //display Humidity
             cardBody.append($("<p>").attr("class", "card-text").text("Humidity: " + response.main.humidity + "%"));
             //display Wind Speed
             cardBody.append($("<p>").attr("class", "card-text").text("Wind Speed: " + response.wind.speed + " MPH"));
-
-
-            // $(".wind").text("Wind Speed: " + response.wind.speed);
-            // $(".humidity").text("Humidity: " + response.main.humidity);
-            // $(".temp").text("Temperature (F): " + response.main.temp);
 
 
             // Call for UV Index
@@ -90,16 +81,9 @@ function getweather(searchedCity) {
                 .then(function (uvIndexResponse) {
                     var uvNumber = uvIndexResponse.value;
                     var uvColor;
-                    if (uvNumber <= 2) {
+                    if (uvNumber <= 3) {
                         uvColor = "green";
-                    }
-                    else if (uvNumber >= 2 || uvNumber <= 5) {
-                        uvColor = "yellow";
-                    }
-                    else if (uvNumber >= 5 || uvNumber <= 7) {
-                        uvColor = "orange";
-                    }
-                    else {
+                    } else {
                         uvColor = "red";
                     }
                     var uvDiv = $("<p>").attr("class", "card-text").text("UV Index: ");
@@ -107,7 +91,7 @@ function getweather(searchedCity) {
                     cardBody.append(uvDiv);
                 });
             cardRow.append(textDiv);
-  
+
             // //Call for 5 Day Forecast
             var cityID = response.id
             getForecast(cityID)
@@ -117,15 +101,7 @@ function getweather(searchedCity) {
 
 
 // function uvIndex(lat, lon) {
-
-      
-  
 // };
-
-function clear() {
-    //clear all the weather
-    $("#cityforecast").empty();
-}
 
 // 5 Day Forcast Function
 function getForecast(cityID) {
@@ -157,11 +133,7 @@ function getForecast(cityID) {
 
                     bodyDiv.append($("<p>").attr("class", "card-text").html("Temp: " + fiveDayResponse.list[i].main.temp + " &#8457;"));
                     bodyDiv.append($("<p>").attr("class", "card-text").text("Humidity: " + fiveDayResponse.list[i].main.humidity + "%"));
-                    // console.log(fiveDayResponse)
-                    // $(".forecast").text(fiveDayResponse.list[0].dt_txt)
-                    // $(".icon").text(fiveDayResponse.list[0].weather[0].icon)
-                    // $(".fiveTemp").text("Temp: " + fiveDayResponse.list[0].main.temp)
-                    // $(".fiveHumidity").text("Humidity: " + fiveDayResponse.list[0].main.humidity)
+        
                 }
             }
         });
@@ -176,6 +148,7 @@ function makelist(name) {
 $(".searchedHistory").on("click", "li", function () {
     console.log($(this).text());
     getweather($(this).text())
+    clear();
 })
 
 function clear() {

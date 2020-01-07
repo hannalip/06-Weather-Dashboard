@@ -24,52 +24,32 @@
     <!-- Retrieved data will be dumped here -->
     <!-- Current conditions -->
     <div class="container-fluid">
-        <div class="row mt-3">
-            <div class="col-md-3 searcharea">
-                <h2 class="city-input">Search for a City:</h2>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" type="search" id="city-input">
-                    <div class="input-group-append">
-                        <button id="find-city" type="submit" class="btn btn-primary">
-                            <span class="fa fa-search"></span>
-                        </button>
+        <div class="row information">
+            <div class="col-lg-3">
+                <div class="searcharea">
+                    <h2 class="city-input">Search for a City:</h2>
+                    <div class="input-group">
+                        <input type="text" class="form-control" type="search" id="city-input">
+                        <div class="input-group-append">
+                            <button id="find-city" type="submit" class="btn btn-primary">
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </div>
                     </div>
+                    <!-- Search History -->
                 </div>
-                <!-- Search History -->
+                <div class="list-group searchedHistory" id="prevSearches">
+                    <!-- Buttons for previous searches here -->
+                </div>
             </div>
-            <div class="mt-5 list-group searchedHistory" id="prevSearches">
-                <!-- <ul class="list-group searchedHistory"></ul> -->
-                <!-- Buttons for previous searches here -->
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="container" id="cityforecast">
-                <!-- <div class="col-md-4 card-img"> </div>
-                <div class="col-md-8 card-body"> </div> -->
-    
-                <!--Weather for current location-->
+            <div class="col-lg-9">
+                <div class="container" id="cityforecast">
+                </div>
             </div>
         </div>
     </div>
     
-    
-    <!-- <div class="row">
-                <div class="col-lg-8">
-                    <div class="city date"></div>
-                    <div class="temp"></div>
-                    <div class="humidity"></div>
-                    <div class="wind"></div>
-                    <div class="uvIndex"></div> -->
-    
-    <!-- 5 Day Forecast -->
-    
-    <!-- <div class="day">
-                        <h2></h2>
-                        <div class="forecast"></div>
-                        <div class="icon"></div>
-                        <div class="fiveTemp"></div>
-                        <div class="fiveHumidity"></div>
-                    </div> -->
+
 
 
 
